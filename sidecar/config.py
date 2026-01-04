@@ -13,8 +13,9 @@ class WatchdogConfig:
     # Timing
     POLL_INTERVAL_SEC = 1.0
     
-    # Actions
-    KILL_ON_IRREVERSIBLE = True
+    - KILL_ON_IRREVERSIBLE = True
++ KILL_ON_IRREVERSIBLE = False
+
     
     # Logging
     LOG_LEVEL = "INFO"
