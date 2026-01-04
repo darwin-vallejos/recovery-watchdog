@@ -1,0 +1,42 @@
+{
+  "run_id": "demo-001",
+  "timestamp": "2026-01-01T00:00:00Z",
+
+  "step_logs": [
+    {
+      "step": 0,
+      "state": "calm",
+      "stress": 0.1,
+      "recovery_margin": 0.92,
+      "hash": "GENESIS"
+    },
+    {
+      "step": 1,
+      "state": "perturbed",
+      "stress": 0.6,
+      "recovery_margin": 0.71,
+      "prev_hash": "GENESIS",
+      "hash": "A1"
+    },
+    {
+      "step": 2,
+      "state": "strained",
+      "stress": 0.8,
+      "recovery_margin": 0.42,
+      "prev_hash": "A1",
+      "hash": "B2"
+    }
+  ],
+
+  "parameters": {
+    "lambda_mem": 0.95,
+    "k_m": 0.5,
+    "calm_decay": 0.7
+  },
+
+  "metrics": {
+    "recovery_margin": 0.42,
+    "damping_debt": 1.73,
+    "recovery_time": 18.4
+  }
+}

@@ -1,0 +1,16 @@
+# Minimal deterministic sidecar image
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# Copy source
+COPY src/ /app/src/
+COPY sidecar/ /app/sidecar/
+
+# Install runtime deps only
+RUN pip install --no-cache-dir numpy matplotlib
+
+# Run watchdog
+CMD ["python", "sidecar/watchdog.py"]
