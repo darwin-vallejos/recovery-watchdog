@@ -1,59 +1,38 @@
 #!/usr/bin/env python3
 
 import csv
-import sys
-from datetime import datetime
+import matplotlib
+matplotlib.use('Agg')  # Fix for recursion issue
 import matplotlib.pyplot as plt
-
+from datetime import datetime
 
 CSV_PATH = "pilot.csv"
 
+timestamps = []
+coherence = []
+margin = []
 
-def load_csv(path):
-    timestamps = []
-    coherence = []
-    margin = []
+with open(CSV_PATH, newline='') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        timestamps.append(datetime.fromisoformat(row["timestamp"]))
+        coherence.append(float(row["coherence_C"]))
+        margin.append(float(row["recovery_margin"]))
 
-    with open(path, newline="") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            timestamps.append(
-                datetime.fromisoformat(row["timestamp"])
-            )
-            coherence.append(float(row["coherence_C"]))
-            margin.append(float(row["recovery_margin"]))
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 6), sharex=True)
 
-    return timestamps, coherence, margin
+ax1.plot(timestamps, coherence, 'b-', linewidth=2)
+ax1.axhline(0.6, linestyle="--", color="red", alpha=0.5)
+ax1.set_ylabel("Coherence C")
+ax1.grid(True, alpha=0.3)
+ax1.set_title("Recovery Watchdog - System Health")
 
+ax2.plot(timestamps, margin, 'orange', linewidth=2)
+ax2.axhline(0.0, linestyle="--", color="black", alpha=0.5)
+ax2.set_ylabel("Recovery Margin")
+ax2.set_xlabel("Time")
+ax2.grid(True, alpha=0.3)
 
-def plot():
-    try:
-        ts, C, m = load_csv(CSV_PATH)
-    except FileNotFoundError:
-        print("pilot.csv not found")
-        sys.exit(1)
-
-    if not ts:
-        print("No data rows yet — chart will appear once metrics exist.")
-        sys.exit(0)
-
-    fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
-
-    ax1.plot(ts, C, label="Coherence C")
-    ax1.set_ylabel("C")
-    ax1.legend()
-    ax1.grid(True)
-
-    ax2.plot(ts, m, color="red", label="Recovery Margin")
-    ax2.axhline(0.01, linestyle="--", color="black")
-    ax2.set_ylabel("Margin")
-    ax2.legend()
-    ax2.grid(True)
-
-    plt.xlabel("Time")
-    plt.tight_layout()
-    plt.show()
-
-
-if __name__ == "__main__":
-    plot()
+plt.tight_layout()
+plt.savefig("watchdog_report.png", dpi=150)
+print("Chart saved to: watchdog_report.png")

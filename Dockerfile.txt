@@ -1,0 +1,30 @@
+# Dockerfile for Recovery Watchdog
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app directory
+WORKDIR /app
+
+# Copy requirements
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application
+COPY src/ ./src/
+COPY real_collector.py .
+COPY watchdog_monitor_real.py .
+COPY dashboard.py .
+COPY alerts.py .
+
+# Create data directory
+RUN mkdir -p /data
+
+# Expose dashboard port
+EXPOSE 5000
+
+# Run monitoring by default
+CMD ["python", "watchdog_monitor_real.py"]

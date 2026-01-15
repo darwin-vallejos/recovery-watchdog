@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  watchdog:
+    build: .
+    container_name: recovery-watchdog
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "5000:5000"
+    command: python watchdog_monitor_real.py
+
+  dashboard:
+    build: .
+    container_name: recovery-watchdog-dashboard
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    ports:
+      - "5001:5000"
+    command: python dashboard.py
+    depends_on:
+      - watchdog

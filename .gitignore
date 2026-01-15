@@ -1,15 +1,46 @@
+```
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
 *.egg-info/
 dist/
 build/
-.venv/
-.env
 
-# never commit keys
-keys/*.pem
-keys/*.key
-keys/*.priv
-keys/*.private*
+# Data files
+*.csv
+pilot.csv
+pilot_real.csv
+detector_report.csv
+
+# Charts
+*.png
+watchdog_report.png
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Config with secrets
+config.json
+.env
+alerts_config.py
+
+# Test data
+data/
+report/
