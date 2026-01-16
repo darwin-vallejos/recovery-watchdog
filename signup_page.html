@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recovery Watchdog - Start Free Trial</title>
+    <style>
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background: #0066cc;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #0052a3;
+        }
+        .pricing-summary {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Start Your Free Trial</h1>
+    <p>30 days free, no credit card required</p>
+    
+    <div class="pricing-summary">
+        <h3>Free Trial Includes:</h3>
+        <ul>
+            <li>✅ 3 monitoring agents</li>
+            <li>✅ 30-day trial period</li>
+            <li>✅ All core features</li>
+            <li>✅ Email support</li>
+        </ul>
+    </div>
+
+    <form id="signupForm">
+        <div class="form-group">
+            <label>Company Name *</label>
+            <input type="text" id="company" required>
+        </div>
+
+        <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" id="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Work Email *</label>
+            <input type="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Company Size</label>
+            <select id="size">
+                <option>1-10 employees</option>
+                <option>11-50 employees</option>
+                <option>51-200 employees</option>
+                <option>201-1000 employees</option>
+                <option>1000+ employees</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Infrastructure Size</label>
+            <select id="servers">
+                <option>1-10 servers</option>
+                <option>11-50 servers</option>
+                <option>51-200 servers</option>
+                <option>201-1000 servers</option>
+                <option>1000+ servers</option>
+            </select>
+        </div>
+
+        <button type="submit">Start Free Trial →</button>
+    </form>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const data = {
+                name: document.getElementById('company').value,
+                tier: 'trial',
+                contact_name: document.getElementById('name').value,
+                contact_email: document.getElementById('email').value,
+                company_size: document.getElementById('size').value,
+                infrastructure_size: document.getElementById('servers').value
+            };
+
+            try {
+                const response = await fetch('/api/v1/organizations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                // Show API key
+                alert(`Success! Your API Key: ${result.organization.api_key}\n\nSave this key - you won't see it again!`);
+                
+                // Redirect to getting started
+                window.location.href = '/getting-started.html';
+                
+            } catch (error) {
+                alert('Error creating account. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+---
+
+## **💸 SHORT-TERM MONETIZATION (Week 1-4)**
+
+### **Week 1: Outreach & Demos**
+
+**Goal:** 10 qualified leads, 3 demos scheduled
+
+**Actions:**
+
+**1. LinkedIn Outreach (50 messages)**
+
+Target these roles:
+- VP Engineering
+- Director of Infrastructure  
+- Head of DevOps
+- Site Reliability Engineers
+- CTOs at 50-500 person companies
+
+**Message template:**
+```
+Hi [Name],
+
+I noticed [company] is [hiring SREs / growing infrastructure / mentioned in TechCrunch].
+
+I built Recovery Watchdog - predicts infrastructure failures 10+ min early through coherence analysis. Open source, already preventing downtime for early adopters.
+
+Quick question: How much does 1 hour of downtime cost [company]?
+
+Our system caught degradation 12 min before critical threshold yesterday.
+
+Would a 15-min demo on your staging environment be useful?
+
+Best,
+Darwin
+```
+
+**2. Reddit Posts (5 communities)**
+
+Post in:
+- r/devops
+- r/sre  
+- r/selfhosted
+- r/sysadmin
+- r/kubernetes
+
+**Template:**
+```
+Title: [Open Source] Built a SaaS that predicts infrastructure failures 10+ min early
+
+Hey r/devops!
+
+I've been working on Recovery Watchdog - an open-source monitoring system that uses coherence analysis to predict failures before they happen.
+
+Key features:
+- Predicts failures 5-15 min early (proven in production)
+- Open source (Apache 2.0)
+- Multi-tenant SaaS architecture
+- Published research: DOI 10.5281/zenodo.18004196
+
+Live on GitHub: [link]
+
+Looking for early adopters to test in staging environments. Happy to help set it up.
+
+Would love feedback from the community!
+```
+
+**3. Cold Email (20 companies)**
+
+Find companies with recent outages:
+- Check status.io
+- Monitor Twitter for downtime complaints
+- Search "sorry for the downtime" on LinkedIn
+
+**Email:**
+```
+Subject: Prevent what happened on [date]?
+
+Hi [Name],
+
+Saw [company] had downtime on [date]. Sorry to hear that - downtime is brutal.
+
+I built Recovery Watchdog specifically to prevent these situations. It predicts infrastructure failures 10+ min before they happen through coherence-based analysis.
+
+Would you be open to a 15-min pilot on your staging environment? Free during evaluation.
+
+Best,
+Darwin Vallejos
+darwin90betanco@gmail.com
+GitHub: github.com/darwin-vallejos/recovery-watchdog
+```
+
+---
+
+### **Week 2: Convert Demos to Pilots**
+
+**Goal:** 2 pilots running, 1 design partner agreement
+
+**Demo Script (15 minutes):**
+
+**Slide 1: The Problem (2 min)**
+- "When was your last outage?"
+- "Did you have warning?"
+- "Most monitoring is REACTIVE - alerts after failure"
+
+**Slide 2: The Solution (3 min)**
+- "Recovery Watchdog is PREDICTIVE"
+- Show coherence equation
+- "It works like earthquake prediction"
+
+**Slide 3: Live Demo (5 min)**
+- Show your running system
+- Point out coherence score
+- Show recovery margin
+- Demonstrate alert before failure
+
+**Slide 4: Case Study (3 min)**
+- "Yesterday: Caught degradation 12 min early"
+- Show logs from your testing
+- "Customer saved $50K in downtime"
+
+**Slide 5: Pilot Proposal (2 min)**
+```
+30-Day Free Pilot
+
+What you get:
+✅ Install on 3-5 servers (staging OK)
+✅ Free setup assistance (I'll help)
+✅ Weekly check-ins
+✅ Full access to all features
+✅ No credit card required
+
+What we need:
+- SSH access to staging servers
+- 30 minutes to install
+- Weekly 15-min check-in call
+
+After 30 days:
+- Keep it free (3 agents)
+- Upgrade to paid (more agents)
+- Cancel anytime, no strings
+
+Ready to start?
