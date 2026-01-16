@@ -157,14 +157,22 @@ def get_dashboard_data(agent_id):
 
 
 if __name__ == '__main__':
+    import os
+    
     # Initialize database
     db.init_db()
+    
+    # Get port from environment variable (Railway sets this)
+    port = int(os.environ.get('PORT', 8000))
+    host = os.environ.get('HOST', '0.0.0.0')
     
     print("=" * 60)
     print("Recovery Watchdog SaaS API Starting")
     print("=" * 60)
-    print("API: http://localhost:8000")
+    print(f"Host: {host}")
+    print(f"Port: {port}")
     print("=" * 60)
     print()
     
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    # Run with production settings
+    app.run(host=host, port=port, debug=False)
